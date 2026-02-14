@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">FirstApp</string>
+    <string name="app_name">Бросок кубика</string>
+    <string name="app_title">🎲 Игра в кубик 🎲</string>
+    <string name="dice_image_description">Изображение игрального кубика</string>
+
+
+    <string name="initial_result_text">Нажми кнопку, чтобы бросить кубик</string>
+    <string name="roll_button_text">БРОСИТЬ КУБИК</string>
+    <string name="roll_again_text">БРОСИТЬ СНОВА</string>
+
+
+    <string name="result_one">🎲 Единица! Маловато будет…</string>
+    <string name="result_two">🎲🎲 Двойка! Уже лучше!</string>
+    <string name="result_three">🎲🎲🎲 Тройка! Неплохо!</string>
+    <string name="result_four">🎲🎲🎲🎲 Четверка! Хороший бросок!</string>
+    <string name="result_five">🎲🎲🎲🎲🎲 Пятерка! Отлично!</string>
+    <string name="result_six">🎲🎲🎲🎲🎲🎲 Шестерка! Максимум!</string>
+    <string name="result_error">Что-то пошло не так…</string>
 </resources>

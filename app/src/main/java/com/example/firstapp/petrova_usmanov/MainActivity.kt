@@ -1,91 +1,71 @@
 package com.example.firstapp.petrova_usmanov
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.firstapp.petrova_usmanov.databinding.ActivityMainBinding
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var diceValueTextView: TextView
-    private lateinit var resultTextView: TextView
-    private lateinit var rollButton: Button
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Включаем edge-to-edge (полноэкранный режим)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        // Настройка отступов под системные панели
+        setContentView(binding.root)
+
+        enableEdgeToEdge()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Инициализация элементов интерфейса
-        initViews()
-
-        // Настройка кнопки
-        setupButton()
+        setupButtonClickListener()
     }
 
-    private fun initViews() {
-        diceValueTextView = findViewById(R.id.diceValueTextView)
-        resultTextView = findViewById(R.id.resultTextView)
-        rollButton = findViewById(R.id.rollButton)
-    }
-
-    private fun setupButton() {
-        rollButton.setOnClickListener {
+    private fun setupButtonClickListener() {
+        binding.rollButton.setOnClickListener {
             rollDice()
         }
     }
 
     private fun rollDice() {
-        // Генерируем случайное число от 1 до 6
         val diceValue = Random.nextInt(1, 7)
 
-        // Обновляем значение кубика
-        diceValueTextView.text = diceValue.toString()
+        binding.rollButton.text = getString(R.string.roll_again_text)
 
-        // Обновляем текст кнопки (если хотим)
-        rollButton.text = "БРОСИТЬ СНОВА"
-
-        // Показываем результат с эмодзи
         val resultMessage = getResultMessage(diceValue)
-        resultTextView.text = resultMessage
+        binding.resultTextView.text = resultMessage
 
-        // Небольшая анимация (опционально)
-        animateDice()
+        animateDiceImage()
     }
 
     private fun getResultMessage(value: Int): String {
         return when (value) {
-            1 -> "🎲 Единица! Маловато будет..."
-            2 -> "🎲🎲 Двойка! Уже лучше!"
-            3 -> "🎲🎲🎲 Тройка! Неплохо!"
-            4 -> "🎲🎲🎲🎲 Четверка! Хороший бросок!"
-            5 -> "🎲🎲🎲🎲🎲 Пятерка! Отлично!"
-            6 -> "🎲🎲🎲🎲🎲🎲 Шестерка! Максимум!"
-            else -> "Что-то пошло не так..."
+            1 -> getString(R.string.result_one)
+            2 -> getString(R.string.result_two)
+            3 -> getString(R.string.result_three)
+            4 -> getString(R.string.result_four)
+            5 -> getString(R.string.result_five)
+            6 -> getString(R.string.result_six)
+            else -> getString(R.string.result_error)
         }
     }
 
-    private fun animateDice() {
-        // Простая анимация масштабирования
-        diceValueTextView.animate()
+    private fun animateDiceImage() {
+        binding.diceImageView.animate()
             .scaleX(1.2f)
             .scaleY(1.2f)
             .setDuration(150)
             .withEndAction {
-                diceValueTextView.animate()
+                binding.diceImageView.animate()
                     .scaleX(1f)
                     .scaleY(1f)
                     .setDuration(150)
